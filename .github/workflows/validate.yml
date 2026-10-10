@@ -1,23 +1,22 @@
 
-name: Validate FNAF 1
+name: Validate FNAF Logic
 
 on:
   push:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  logic-tests:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Compile game logic
-        run: |
-          g++ -std=c++17 -Wall -Wextra -Werror \
-            src/main.cpp -o fnaf-tests
+      - name: Compile
+        run: g++ -std=c++17 -Wall -Wextra -Werror src/main.cpp -o fnaf-tests
 
       - name: Run tests
         run: ./fnaf-tests
